@@ -145,6 +145,7 @@ func usernameHandler(c *gin.Context) {
 	})
 }
 
+// AuthLogin Handler
 func authLoginHandler(c *gin.Context) {
 	var data struct {
 		Username string `json:"username"`
@@ -157,7 +158,8 @@ func authLoginHandler(c *gin.Context) {
 	}
 
 	isValidUsername := regexp.MustCompile(`^[a-zA-Z0-9]+$`).MatchString(data.Username)
-	isValidPassword := regexp.MustCompile(`^[0-9]+$`).MatchString(data.Password)
+	// Ubah regex untuk password untuk menerima huruf dan angka
+	isValidPassword := regexp.MustCompile(`^[a-zA-Z0-9]+$`).MatchString(data.Password)
 
 	if isValidUsername && isValidPassword {
 		c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
